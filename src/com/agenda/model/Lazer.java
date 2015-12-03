@@ -1,6 +1,6 @@
 package com.agenda.model;
 
-public class Lazer extends Compromisso{
+public class Lazer extends AgendaTask{
        
 	private String atividade;
 	private boolean separeiApetrechos;

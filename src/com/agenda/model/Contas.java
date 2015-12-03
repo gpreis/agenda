@@ -1,6 +1,6 @@
 package com.agenda.model;
 
-public class Contas extends Compromisso{
+public class Contas extends AgendaTask{
 
 	private double valor;
 	private String vencimento;

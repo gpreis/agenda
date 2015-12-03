@@ -1,6 +1,6 @@
 package com.agenda.model;
 
-public class Reuniao  extends Compromisso{
+public class Reuniao  extends AgendaTask{
 
 	private String assunto;
 	private String documentos;

@@ -1,17 +1,20 @@
 package com.agenda.view;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import com.agenda.controllers.UsuarioController;
-import com.agenda.model.Usuario;
+import com.agenda.controllers.UserController;
+import com.agenda.exceptions.ResourceDuplicatedException;
+import com.agenda.exceptions.ResourceNotFoundException;
+import com.agenda.model.User;
 
 public class MainInterface {
 	private Scanner input;
-	private UsuarioController usCon;
+	private UserController usCon;
 	
 	public MainInterface(){
 		input = new Scanner(System.in);
-		usCon = new UsuarioController();
+		usCon = new UserController();
 	}
 	
 	public void mainMenu(){
@@ -21,22 +24,44 @@ public class MainInterface {
 			System.out.println("\n\nMenu Principal:");
 			System.out.println("1- Criar Usuário");
 			System.out.println("2- Listar Usuários");
-			System.out.println("3- Gerenciar Usuário");
+			System.out.println("3- Selecionar Usuário");
 			System.out.println("Digite a acione: ");
-			action = input.nextInt();
+			
+			try{
+				action = input.nextInt();
+			} catch(InputMismatchException e) {
+				action = -1;
+				System.out.println("Informação inválida!");
+			}
 			
 			switch (action) {
 			case 1:
-				usCon.adicionarUsuario(input);
+				addUser();
 				break;
 			case 2:
-				UsuarioView.printList(usCon.getInicio());
+				UserView.printList(usCon.getList());
 				break;
 			case 3:
-				Usuario usuario = usCon.procurarNome(input);
-				if(usuario != null) new UsuarioInterface(input, usuario).manage();
+				selectUser();
 				break;
 			}
+		}
+	}
+	
+	private void addUser(){
+		try {
+			usCon.add();
+		} catch (ResourceDuplicatedException e) {
+			System.out.println("Usuário com este nome já cadastrado!"); 
+		}
+	}
+	
+	private void selectUser(){
+		try{
+			User user = usCon.findByName();
+			new UserInterface(user).manage();
+		}catch(ResourceNotFoundException e){
+			System.out.println("Usuário não encontrado!");
 		}
 	}
 	

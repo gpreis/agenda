@@ -1,24 +1,24 @@
 package com.agenda.nodo;
 
-import com.agenda.model.Usuario;
+import com.agenda.model.User;
 
 public class UsuarioNodo extends Nodo{
-	private Usuario usuario;
+	private User usuario;
 	
 	public UsuarioNodo(){
 		super();
 	}
 	
-	public UsuarioNodo(Usuario usuario, UsuarioNodo prox){
+	public UsuarioNodo(User usuario, UsuarioNodo prox){
 		super(prox);
 		this.usuario = usuario;
 	}
 
-	public Usuario getUsuario() {
+	public User getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(Usuario usuario) {
+	public void setUsuario(User usuario) {
 		this.usuario = usuario;
 	}
 }

@@ -1,14 +1,14 @@
 package com.agenda.model;
 
-public class Saude extends Compromisso{
-	private Usuario medico;
+public class Saude extends AgendaTask{
+	private User medico;
 	private Boolean fazerExames;
 	private Boolean fizExames;
 	private Boolean fazerJejum;
 	private String sintomas;
 
 	public Saude(String descricao, Integer dia, Integer mes, Integer ano,
-			Integer hora, Usuario medico, Boolean fazerExames,
+			Integer hora, User medico, Boolean fazerExames,
 			Boolean fizExames, Boolean fazerJejum, String sintomas) {
 		super(descricao, dia, mes, ano, hora);
 		this.medico = medico;
@@ -23,11 +23,11 @@ public class Saude extends Compromisso{
 		fizExames = true;
 	}
 
-	public Usuario getMedico() {
+	public User getMedico() {
 		return medico;
 	}
 
-	public void setMedico(Usuario medico) {
+	public void setMedico(User medico) {
 		this.medico = medico;
 	}
 

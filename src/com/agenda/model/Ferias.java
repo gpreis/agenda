@@ -1,6 +1,6 @@
 package com.agenda.model;
 
-public class Ferias extends Compromisso {
+public class Ferias extends AgendaTask {
 
 	private int diaFinal, mesFinal, anoFinal;
 

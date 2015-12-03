@@ -1,24 +1,24 @@
 package com.agenda.nodo;
 
-import com.agenda.model.Compromisso;
+import com.agenda.model.AgendaTask;
 
 public class CompromissoNodo extends Nodo{
-	private Compromisso compromisso;
+	private AgendaTask compromisso;
 	
 	public CompromissoNodo(){
 		super();
 	}
 	
-	public CompromissoNodo(Compromisso compromisso, CompromissoNodo prox){
+	public CompromissoNodo(AgendaTask compromisso, CompromissoNodo prox){
 		super(prox);
 		this.compromisso = compromisso;
 	}
 
-	public Compromisso getCompromisso() {
+	public AgendaTask getCompromisso() {
 		return compromisso;
 	}
 
-	public void setCompromisso(Compromisso compromisso) {
+	public void setCompromisso(AgendaTask compromisso) {
 		this.compromisso = compromisso;
 	}
 }

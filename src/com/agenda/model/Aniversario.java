@@ -1,12 +1,12 @@
 package com.agenda.model;
 
-public class Aniversario extends Compromisso {
-	public Usuario aniversariante;
+public class Aniversario extends AgendaTask {
+	public User aniversariante;
 	public String presente;
 	public Boolean compreiPresente;
 
 	public Aniversario(String descricao, Integer dia, Integer mes, Integer ano,
-			Integer hora, Usuario aniversariante, String presente, Boolean compreiPresente) {
+			Integer hora, User aniversariante, String presente, Boolean compreiPresente) {
 		super(descricao, dia, mes, ano, hora);
 		this.aniversariante = aniversariante;
 		this.presente = presente;
@@ -17,11 +17,11 @@ public class Aniversario extends Compromisso {
 		compreiPresente = true;
 	}
 
-	public Usuario getAniversariante() {
+	public User getAniversariante() {
 		return aniversariante;
 	}
 
-	public void setAniversariante(Usuario aniversariante) {
+	public void setAniversariante(User aniversariante) {
 		this.aniversariante = aniversariante;
 	}
 

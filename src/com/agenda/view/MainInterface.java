@@ -22,6 +22,7 @@ public class MainInterface {
 		while(action != 0){
 			
 			System.out.println("\n\nMenu Principal:");
+			System.out.println("0- Sair");
 			System.out.println("1- Criar Usuário");
 			System.out.println("2- Listar Usuários");
 			System.out.println("3- Selecionar Usuário");

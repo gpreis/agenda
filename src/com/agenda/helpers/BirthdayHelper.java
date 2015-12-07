@@ -15,7 +15,7 @@ public class BirthdayHelper extends AgendaTaskHelper{
 				askBirthdayPerson(), askAge(), askAttendees(owner));
 	}
 	
-	protected static ArrayList<User> askAttendees(User owner){
+	public static ArrayList<User> askAttendees(User owner){
 		ArrayList<User> users = new ArrayList<User>();
 		users.add(birthdayPerson);
 		return askAttendees(owner, users);

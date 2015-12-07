@@ -1,38 +1,58 @@
 package com.agenda.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import com.agenda.exceptions.InvalidDayOfTheWeekException;
 import com.agenda.view.AgendaTaskView;
 
 public class AgendaTask implements Serializable{
 
+	public static ArrayList<AgendaTask> tasks = new ArrayList<AgendaTask>();
+	private User owner;
+	private ArrayList<User> attendees;
 	private static final long serialVersionUID = 6871893678399877125L;
 	private String description;
-	private Integer year;
-	private Integer month;
-	private Integer day;
-	private Integer hour;
-	private Integer dayOfTheWeek;
+	private String code;
+	private GregorianCalendar dateBegin;
+	private int durationMinutes;
 	private boolean weekly;
 	
-	public AgendaTask(String description, Integer year, Integer month, Integer day, Integer hour) {
+	public AgendaTask(User owner, String description, String code, GregorianCalendar dateBegin, int durationMinutes, boolean weekly) {
+		this.owner = owner;
 		this.description = description;
-		this.year = year;
-		this.month = month;
-		this.day = day;
-		this.hour = hour;
-		this.weekly = false;
+		this.code = code;
+		this.dateBegin = dateBegin;
+		this.durationMinutes = durationMinutes;
+		this.weekly = weekly;
+		this.attendees = new ArrayList<User>();
+	}
+
+	public AgendaTask(User owner, String description, String code, GregorianCalendar dateBegin, int durationMinutes, boolean weekly, ArrayList<User> attendees) {
+		this.owner = owner;
+		this.description = description;
+		this.code = code;
+		this.dateBegin = dateBegin;
+		this.durationMinutes = durationMinutes;
+		this.weekly = weekly;
+		this.attendees = attendees;
 	}
 	
-	public AgendaTask(String description, Integer dayOfTheWeek, Integer hour) {
-		if(dayOfTheWeek > 7) throw new InvalidDayOfTheWeekException();
-		this.description = description;
-		this.dayOfTheWeek = dayOfTheWeek;
-		this.hour = hour;
-		this.weekly = true;
+	public User getOwner() {
+		return owner;
+	}
+
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
+
+	public ArrayList<User> getAttendees() {
+		return attendees;
+	}
+
+	public void setAttendees(ArrayList<User> attendees) {
+		this.attendees = attendees;
 	}
 
 	public String getDescription() {
@@ -42,76 +62,63 @@ public class AgendaTask implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public GregorianCalendar getDateBegin() {
+		return dateBegin;
+	}
+
+	public void setDateBegin(GregorianCalendar dateBegin) {
+		this.dateBegin = dateBegin;
+	}
+
+	public int getDurationMinutes() {
+		return durationMinutes;
+	}
+
+	public void setDurationMinutes(int durationMinutes) {
+		this.durationMinutes = durationMinutes;
+	}
 
 	public boolean isWeekly() {
 		return weekly;
 	}
 
-	public Integer getYear() {
-		return year;
-	}
-
-	public void setYear(Integer year) {
-		this.year = year;
-	}
-
-	public Integer getMonth() {
-		return month;
-	}
-
-	public void setMonth(Integer month) {
-		this.month = month;
-	}
-
-	public Integer getDay() {
-		return day;
-	}
-
-	public void setDay(Integer day) {
-		this.day = day;
-	}
-
-	public Integer getHour() {
-		return hour;
-	}
-
-	public void setHour(Integer hour) {
-		this.hour = hour;
-	}
-
 	public Integer getDayOfTheWeek() {
-		if(weekly) return dayOfTheWeek;
-		return new GregorianCalendar(year, month - 1, day).get(Calendar.DAY_OF_WEEK);
-		
-	}
-
-	public void setDayOfTheWeek(Integer dayOfTheWeek) {
-		this.dayOfTheWeek = dayOfTheWeek;
+		return getDateBegin().get(Calendar.DAY_OF_WEEK);
 	}
 	
-	public boolean isTheSameDay(GregorianCalendar c){
-		if(year != c.get(Calendar.YEAR)) return false;
-		else if((month - 1) != c.get(Calendar.MONTH)) return false;
-		else if(day != c.get(Calendar.DAY_OF_MONTH)) return false;
-		return true;
-	}
-
-	public boolean isOnThatDay(GregorianCalendar c){
-		if(getDayOfTheWeek() != c.get(c.DAY_OF_WEEK)) return false;
-		else if(isWeekly()) return true;
-		else if(isTheSameDay(c)) return true;
-		return false;
-	}
 	
 	public boolean equals(Object o) {
 		AgendaTask task = (AgendaTask) o;
-		if(isWeekly() || task.isWeekly()) return getDayOfTheWeek().equals(task.getDayOfTheWeek()) && getHour().equals(task.getHour());
-		else return getHour().equals(task.getHour()) && getDay().equals(task.getDay()) && getMonth().equals(task.getMonth()) && getYear().equals(task.getYear());
+		return this.getCode().equals(task.getCode());
 	}
 	
 	public String toString(){
 		String weekly = " | " + (isWeekly() ? "Semanal" : "Não semanal");
 		return AgendaTaskView.basicAgendaTaskInfo(this).concat(weekly);
 	}
+	
+	public boolean isTheSameDay(GregorianCalendar c){
+		if(this.getDateBegin().get(Calendar.YEAR) != c.get(Calendar.YEAR)) return false;
+		else if(this.getDateBegin().get(Calendar.MONTH) != c.get(Calendar.MONTH)) return false;
+		else if(this.getDateBegin().get(Calendar.DAY_OF_MONTH) != c.get(Calendar.DAY_OF_MONTH)) return false;
+		return true;
+	}
+	
+	public boolean isOnThatDay(GregorianCalendar c){
+		if(getDayOfTheWeek() != c.get(Calendar.DAY_OF_WEEK)) return false;
+		else if(isWeekly()) return true;
+		else if(isTheSameDay(c)) return true;
+		return false;
+	}
+
 	
 }

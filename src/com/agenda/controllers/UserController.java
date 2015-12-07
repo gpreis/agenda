@@ -3,6 +3,7 @@ package com.agenda.controllers;
 import java.util.Scanner;
 
 import com.agenda.exceptions.ResourceNotFoundException;
+import com.agenda.helpers.UserHelper;
 import com.agenda.model.User;
 
 public class UserController extends BaseController<User>{
@@ -27,16 +28,6 @@ public class UserController extends BaseController<User>{
 		add(user);
 	}
 	
-	public User findByName(String name){
-		User user = new User(name, "");
-		
-		if(getList().contains(user)){
-			return getList().get(getList().indexOf(user));
-		}
-		
-		throw new ResourceNotFoundException(User.class);
-	}
-	
 	public User findByName(){
 		String nome;
 		input = new Scanner(System.in);
@@ -44,7 +35,7 @@ public class UserController extends BaseController<User>{
 		System.out.println("Nome do usuario: ");
 		nome = input.nextLine();
 		
-		return findByName(nome);
+		return UserHelper.findByName(nome);
 	}
 
 }

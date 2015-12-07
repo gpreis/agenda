@@ -1,22 +1,37 @@
 package com.agenda.io;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
 
-public class Data {
-	private String path;
-	private File file;
+import com.agenda.model.AgendaTask;
+import com.agenda.model.User;
+
+public class Data implements Serializable{
+
+	private static final long serialVersionUID = 4234071841962560838L;
+	public ArrayList<AgendaTask> tasks;
+	public ArrayList<User> users;
 	
-	public Data(String path) throws IOException {
-		this.path = path;
-		file = new File(path);
+	public Data(ArrayList<AgendaTask> tasks, ArrayList<User> users) {
+		super();
+		this.tasks = tasks;
+		this.users = users;
+	}
+
+	public ArrayList<AgendaTask> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(ArrayList<AgendaTask> tasks) {
+		this.tasks = tasks;
+	}
+
+	public ArrayList<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(ArrayList<User> users) {
+		this.users = users;
 	}
 	
-	public String getPath() {
-		return path;
-	}
-	
-	public File getFile() {
-		return file;
-	}
 }

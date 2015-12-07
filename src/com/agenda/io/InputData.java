@@ -4,8 +4,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
+import com.agenda.model.AgendaTask;
+import com.agenda.model.User;
 
-public class InputData extends Data {
+
+public class InputData extends BaseData {
 	
 	private FileInputStream fileInput;
 	
@@ -13,9 +16,11 @@ public class InputData extends Data {
 		super(path);
 	}
 
-	public Object load() throws IOException, ClassNotFoundException {
+	public void load() throws IOException, ClassNotFoundException {
 		fileInput = new FileInputStream(getFile());
 		ObjectInputStream toLoad = new ObjectInputStream(fileInput);
-		return toLoad.readObject();
+		Data data = (Data) toLoad.readObject();
+		User.users = data.getUsers();
+		AgendaTask.tasks = data.getTasks();
 	}
 }

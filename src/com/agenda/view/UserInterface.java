@@ -20,7 +20,7 @@ public class UserInterface {
 	public UserInterface(User user) {
 		this.input = new Scanner(System.in);
 		this.user = user;
-		this.tasks = new AgendaTaskController( user.getCompromissos() );
+		this.tasks = new AgendaTaskController(user.getCompromissos(), user);
 	}
 	
 	public void manage() {
@@ -76,7 +76,7 @@ public class UserInterface {
 	
 	private void findTask(){
 		try {
-			AgendaTask task = tasks.findByDateAndHour();
+			AgendaTask task = tasks.findByCode();
 			AgendaTaskView.printDetails(task);
 			new AgendaTaskInterface(task, tasks).manage();
 		} catch (ResourceNotFoundException e){

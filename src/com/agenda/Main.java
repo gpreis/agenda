@@ -10,7 +10,7 @@ import com.agenda.view.MainInterface;
 
 public class Main {
 
-	private final static String PATH_DATA = "/home/pull4up/school/agendadata";  
+	private final static String PATH_DATA = "/home/gabriel/agendadata";  
 	
 	public static void main(String[] args) {
 		load(); // TODO ask path and put on the menu actions 
@@ -30,7 +30,8 @@ public class Main {
 
 	private static void load(){
 		try {
-			User.users = (ArrayList<User>) new InputData(PATH_DATA).load();
+			new InputData(PATH_DATA).load();
+			System.out.println("Dados carregados com sucesso!");
 		} catch (ClassNotFoundException e) {
 			System.out.println("Impossível ler arquivo de dados!"); 
 		} catch (IOException e) {

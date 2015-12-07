@@ -4,9 +4,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+import com.agenda.model.AgendaTask;
 import com.agenda.model.User;
 
-public class OutputData extends Data {
+public class OutputData extends BaseData {
 
 	private FileOutputStream fileOutput;
 	
@@ -18,7 +19,8 @@ public class OutputData extends Data {
 		createIfNeed();
 		fileOutput = new FileOutputStream(getFile());
 		ObjectOutputStream toSave = new ObjectOutputStream(fileOutput);
-		toSave.writeObject(User.users);
+		Data data = new Data(AgendaTask.tasks, User.users);
+		toSave.writeObject(data);
 		toSave.close();
 	}
 	

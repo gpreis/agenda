@@ -14,7 +14,7 @@ public class AgendaTaskHelper {
 	protected static Scanner input;
 	
 	protected static void startScanner(){
-		startScanner();
+		input = new Scanner(System.in);
 	}
 	
 	public static AgendaTask askAnyAgendaTask(User owner){
@@ -34,8 +34,7 @@ public class AgendaTaskHelper {
 		return new AgendaTask(owner, askDescription(), askCode(), askDate(), askDuration(), askWeekly(), askAttendees(owner));
 	}
 	
-	protected static ArrayList<User> askAttendees(User owner){
-		ArrayList<User> result = new ArrayList<User>();
+	protected static ArrayList<User> askAttendees(User owner, ArrayList<User> users){
 		User user;
 		startScanner();
 		
@@ -44,15 +43,19 @@ public class AgendaTaskHelper {
 				System.out.println("Nome do Participante: ");	
 				user = UserHelper.findByName(input.nextLine());
 				
-				if(result.contains(user)) System.out.println("Usuário já está na lista de participantes!");
+				if(users.contains(user)) System.out.println("Usuário já está na lista de participantes!");
 				else if(user.equals(owner)) System.out.println("Usuário é dono do compromisso!");
-				else result.add(user);
+				else users.add(user);
 			} catch(ResourceNotFoundException e) {
 				System.out.println("Usuário não encontrado!");
 			}
 		}
 		
-		return result;
+		return users;
+	}
+	
+	protected static ArrayList<User> askAttendees(User owner){
+		return askAttendees(owner, new ArrayList<User>());
 	}
 	
 	protected static boolean askWeekly(){
@@ -80,5 +83,16 @@ public class AgendaTaskHelper {
 	protected static int askDuration(){
 		System.out.println("Duração do compromisso: ");
 		return (AskHelper.askInt("Horas:") * 60) + AskHelper.askInt("Minutos:");
+	}
+	
+	public static void set(AgendaTask task, int field){
+		switch(field){
+			case AgendaTask.DESCRIPTION: task.set(field, askDescription()); break;
+			case AgendaTask.CODE: task.set(field, askCode()); break;
+			case AgendaTask.DATE_BEGIN: task.set(field, askDate()); break;
+			case AgendaTask.DURATION_MINUTES: task.set(field, askDuration()); break;
+			case AgendaTask.WEEKLY: task.set(field, askWeekly()); break;
+			case AgendaTask.ATTENDEES: task.set(field, askDescription()); break;
+		}
 	}
 }

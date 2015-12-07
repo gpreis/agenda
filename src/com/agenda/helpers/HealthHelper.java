@@ -1,5 +1,7 @@
 package com.agenda.helpers;
 
+import com.agenda.model.AgendaTask;
+import com.agenda.model.Health;
 import com.agenda.model.Health;
 import com.agenda.model.User;
 
@@ -25,6 +27,16 @@ public class HealthHelper extends AgendaTaskHelper {
 	
 	public static String askReason(){
 		return AskHelper.askString("Motivo da ida ao médico:");
+	}
+	
+	public static void set(AgendaTask task, int field){
+		switch(field){
+			case Health.COVERED_BY_PLAN: task.set(field, askCoveredByPlan()); break;
+			case Health.DOCTOR_NAME: task.set(field, askDoctorName()); break;
+			case Health.DOCTOR_SPECIALIZATION: task.set(field, askDoctorSpecialization()); break;
+			case Health.REASON: task.set(field, askReason()); break;
+			default: AgendaTaskHelper.set(task, field); 
+		}
 	}
 	
 }

@@ -1,7 +1,9 @@
 package com.agenda.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public class Birthday extends AgendaTask {
 
@@ -9,12 +11,38 @@ public class Birthday extends AgendaTask {
 	private User birthdayPerson;
 	private int age;
 	
+	public static final int BIRTHDAY_PERSON = 101;
+	public static final int AGE = 102;
+	
 	public Birthday(User owner, String description, String code, 
 			GregorianCalendar dateBegin, int durationMinutes, 
 			User birthdayPerson, int age, ArrayList<User> attendees) {
 		super(owner, description, code, dateBegin, durationMinutes, false, attendees);
 		this.birthdayPerson = birthdayPerson;
 		this.age = age;
+	}
+	
+	public ArrayList<Integer> fields(){
+		ArrayList<Integer> result = super.fields();
+		result.add(BIRTHDAY_PERSON);
+		result.add(AGE);
+		return result;
+	}
+	
+	public String fieldName(int field) {
+		switch (field) {
+			case BIRTHDAY_PERSON: return "Aniversariante";
+			case AGE: return "Idade";
+			default: return super.fieldName(field);
+		}
+	}
+	
+	public void set(int field, Object o){
+		switch(field) {
+			case BIRTHDAY_PERSON: setBirthdayPerson((User) o); break;
+			case AGE: setAge((Integer) o); break;
+			default: super.set(field, o);
+		}
 	}
 
 	public User getBirthdayPerson() {

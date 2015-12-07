@@ -2,8 +2,10 @@ package com.agenda.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import com.agenda.view.AgendaTaskView;
 
@@ -18,6 +20,13 @@ public class AgendaTask implements Serializable{
 	private GregorianCalendar dateBegin;
 	private int durationMinutes;
 	private boolean weekly;
+	
+	public static final int DESCRIPTION = 1;
+	public static final int CODE = 2;
+	public static final int DATE_BEGIN = 3;
+	public static final int DURATION_MINUTES = 4;
+	public static final int WEEKLY = 5;
+	public static final int ATTENDEES = 6;
 	
 	public AgendaTask(User owner, String description, String code, GregorianCalendar dateBegin, int durationMinutes, boolean weekly) {
 		this.owner = owner;
@@ -37,6 +46,40 @@ public class AgendaTask implements Serializable{
 		this.durationMinutes = durationMinutes;
 		this.weekly = weekly;
 		this.attendees = attendees;
+	}
+	
+	public ArrayList<Integer> fields(){
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		result.add(DESCRIPTION);
+		result.add(CODE);
+		result.add(DATE_BEGIN);
+		result.add(DURATION_MINUTES);
+		result.add(WEEKLY);
+		result.add(ATTENDEES);
+		return result;
+	}
+	
+	public String fieldName(int field){
+		switch(field){
+			case DESCRIPTION: return "Descrição"; 
+			case CODE: return "Código";
+			case DATE_BEGIN: return "Data Inicial";
+			case DURATION_MINUTES: return "Duração";
+			case WEEKLY: return "É Semanal?";
+			case ATTENDEES: return "Participantes";
+			default: return "";
+		}
+	}
+	
+	public void set(int field, Object o){
+		switch(field){
+			case DESCRIPTION: setDescription((String) o); break;
+			case CODE: setCode((String) o); break;
+			case DATE_BEGIN: setDateBegin((GregorianCalendar) o); break;
+			case DURATION_MINUTES: setDurationMinutes((Integer) o); break;
+			case ATTENDEES: setAttendees((ArrayList<User>) o); break;
+			case WEEKLY: setWeekly((Boolean) o); break;
+		}
 	}
 	
 	public User getOwner() {
@@ -89,6 +132,10 @@ public class AgendaTask implements Serializable{
 
 	public boolean isWeekly() {
 		return weekly;
+	}
+
+	public void setWeekly(boolean weekly) {
+		this.weekly = weekly;
 	}
 
 	public Integer getDayOfTheWeek() {

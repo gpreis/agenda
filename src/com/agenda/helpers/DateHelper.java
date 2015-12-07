@@ -9,7 +9,7 @@ import com.agenda.exceptions.InvalidDayOfTheWeekException;
 
 public class DateHelper {
 	
-	private static Scanner input = new Scanner(System.in);
+	private static Scanner input;
 	
 	public static final String PATTERN_DAY = "dd/MM/yyyy";
 	public static final String PATTERN_HOUR = "hh:mm";
@@ -19,27 +19,24 @@ public class DateHelper {
 	public static final SimpleDateFormat HOUR_BR = new SimpleDateFormat(PATTERN_DATE);
 	
 	public static GregorianCalendar askDate(){
+		input = new Scanner(System.in);
 		GregorianCalendar result = askDay();
 		
-		result.set(Calendar.HOUR_OF_DAY, askInt("Hora:"));
-		result.set(Calendar.MINUTE, askInt("Minuto:"));
+		result.set(Calendar.HOUR_OF_DAY, AskHelper.askInt("Hora:"));
+		result.set(Calendar.MINUTE, AskHelper.askInt("Minuto:"));
 		
 		return result;
 	}
 	
 	public static GregorianCalendar askDay(){
+		input = new Scanner(System.in);
 		int day, month, year;
 		
-		day = askInt("Dia:");
-		month = askInt("Mês:") - 1;
-		year = askInt("Ano:");
+		day = AskHelper.askInt("Dia:");
+		month = AskHelper.askInt("Mês:") - 1;
+		year = AskHelper.askInt("Ano:");
 		
 		return new GregorianCalendar(year, month, day);
-	}
-	
-	public static int askInt(String message){
-		System.out.println(message);
-		return input.nextInt();
 	}
 	
 	public static String dayOfTheWeek(int i) {

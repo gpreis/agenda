@@ -10,7 +10,7 @@ import com.agenda.view.MainInterface;
 
 public class Main {
 
-	private final static String PATH_DATA = "/home/gabriel/agendadata";  
+	private final static String PATH_DATA = "/home/pull4up/agendadata2";  
 	
 	public static void main(String[] args) {
 		load(); // TODO ask path and put on the menu actions 

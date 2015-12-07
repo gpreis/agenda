@@ -8,7 +8,7 @@ import com.agenda.model.AgendaTask;
 
 public class AgendaTaskView {
 	public static final SimpleDateFormat br = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-	public static String[] TASK_TYPES = {"PADRAO", "ANIVERSARIO"};
+	public static String[] TASK_TYPES = {"GERAL", "ANIVERSARIO", "AULA", "SAUDE"};
 	
 	public static String basicAgendaTaskInfo(AgendaTask task) {
 		return task.getCode() + " | " + task.getDescription() + " | " + formatDate(task);

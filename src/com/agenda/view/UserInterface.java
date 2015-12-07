@@ -33,6 +33,7 @@ public class UserInterface {
 			System.out.println("2- Listar Compromissos");
 			System.out.println("3- Verificar dia");
 			System.out.println("4- Buscar compromisso");
+			System.out.println("5- Compromissos em que participo");
 			System.out.println("Digitar a ação desejada:");
 			
 			try{
@@ -53,6 +54,9 @@ public class UserInterface {
 					break;
 				case 4:
 					findTask();
+					break;
+				case 5:
+					AgendaTaskView.printList(tasks.getOthersTasks());
 			}
 		}
 	}

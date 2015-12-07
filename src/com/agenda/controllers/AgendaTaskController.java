@@ -1,6 +1,7 @@
 package com.agenda.controllers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Scanner;
@@ -68,6 +69,14 @@ public class AgendaTaskController extends BaseController<AgendaTask> {
 		code = input.nextLine();
 		
 		return findByCode(code);
+	}
+
+	public ArrayList<AgendaTask> getOthersTasks() {
+		ArrayList<AgendaTask> result = new ArrayList<AgendaTask>();
+		for(AgendaTask task : AgendaTask.tasks) {
+			if(task.getAttendees() != null && task.getAttendees().contains(owner)) result.add(task);
+		}
+		return result;
 	}
 	
 }
